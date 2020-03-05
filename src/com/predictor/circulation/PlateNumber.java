@@ -1,7 +1,7 @@
 package com.predictor.circulation;
 
 public class PlateNumber {
-	int plateNumber;
+	private int plateNumber;
 
 	public PlateNumber() {
 
