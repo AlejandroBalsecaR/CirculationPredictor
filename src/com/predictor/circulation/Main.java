@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
+	
 	static Service service = new Service();
 	static Scanner sc = new Scanner(System.in);
 	
@@ -61,10 +62,10 @@ public class Main {
 	
 	// Method to validate the correct pattern of hour entered
 	public static String hourOfConsult(String message) {
-		boolean verificationDate = true;
+		boolean verificationHour = true;
 		String hourEntered = "";
 
-		while (verificationDate == true) {
+		while (verificationHour == true) {
 			System.out.println(message);
 			hourEntered = sc.nextLine();
 			Pattern pattern = Pattern.compile(Constants.HOUR_PATTERN);
@@ -72,7 +73,7 @@ public class Main {
 			
 			if (matcher.matches()) {
 				try {
-					verificationDate = false;
+					verificationHour = false;
 				} catch (Exception e) {
 					System.err.println("Enter the hour with the correct format ... ");
 				}
@@ -83,25 +84,54 @@ public class Main {
 		return hourEntered;
 	}
 	
-	// Methods to recive the message and data of each one
-	public static void enterPlate() {
-		int dataPlate = plateOfConsultant("Enter a plate number");
+	// Methods to receive the message and data of each one
+	public static int enterPlate() {
+		int dataPlate = plateOfConsultant("Enter a plate number, only digits, must be 3 or 4 digits");
 		service.dinamicInsertPlateNumber(new PlateNumber(dataPlate));
+		return dataPlate;
 	}
 
-	public static void enterDate() {
-		String dataDate = dateOfConsult("Enter the date: year-month-day");
+	// Method to receive the date
+	public static String enterDate() {
+		String dataDate = dateOfConsult("Enter the date: must be Year-Month-Day");
 		service.dinamicInsertDateEntered(new DateEntered(dataDate));
+		return dataDate;
 	}
-
-	public static void enterHour() {
-		String dataHour = hourOfConsult("Enter the hour: hour:minute 24hr");
+	
+	// Method to receive the hour
+	public static String enterHour() {
+		String dataHour = hourOfConsult("Enter the hour: Hour:Minute 24hr");
 		service.dinamicInsertHourEntered(new HourEntered(dataHour));
+		return dataHour;
 	}
 	
 	public static void main(String[] args) {
-		enterPlate();
-		enterDate();
-		enterHour();
+		String optionMenu = "";
+		
+		while (!optionMenu.equals("x")) {
+			System.out.println("");
+			System.out.println("============== Menu ==============");
+			System.out.println("Press 1 to validate Pico y Placa");
+			System.out.println("Press x to exit");
+			optionMenu = sc.nextLine();
+			
+			switch (optionMenu) {
+			case "1":
+				System.out.println("You must enter the plate of car, the date and the hour");
+				int plate = enterPlate();
+				String date = enterDate();
+				String hour = enterHour();
+				if(service.validatePlateByDay(date, plate, hour)) {
+					System.out.println("This car can be road");
+				}else {
+					System.err.println("This car can not be road");
+				};
+				break;
+			case "2":
+				System.out.println("Exit press x");
+			default:
+				break;
+			}	
+		}
 	}
 }

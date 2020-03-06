@@ -15,4 +15,21 @@ public final class Constants {
 	// Max & min length of number of plate
 	public static final int MIN_NUMBER_PLATE = 3;
 	public static final int MAX_NUMBER_PLATE = 4;
+	
+	// Days: Each day have 2 numbers to block circulation plate's car
+	public static final int DAY_SUNDAY = 1;
+	public static final int DAY_MONDAY = 2;
+	public static final int DAY_TUESDAY = 3;
+	public static final int DAY_WEDNESDAY = 4;
+	public static final int DAY_THURSDAY = 5;
+	public static final int DAY_FRIDAY = 6;
+	public static final int DAY_SATURDAY = 7;
+	
+	// Hours: Range of "pico y placa"
+	public static final String HOUR_MIN_MORNING = "06:59";
+	public static final String HOUR_MAX_MORNING = "09:31";
+	public static final String HOUR_MIN_AFTERNOON = "15:59";
+	public static final String HOUR_MAX_AFTERNOON = "17:31";
+	
+	
 }
